@@ -63,7 +63,6 @@ public class MybatisGeneratorBridge {
         TableConfiguration tableConfig = new TableConfiguration(context);
         tableConfig.setTableName(generatorConfig.getTableName());
         tableConfig.setDomainObjectName(generatorConfig.getDomainObjectName());
-
         // 针对 postgresql 单独配置
         if (DbType.valueOf(selectedDatabaseConfig.getDbType()).getDriverClass() == "org.postgresql.Driver") {
             tableConfig.setDelimitIdentifiers(true);
@@ -109,7 +108,7 @@ public class MybatisGeneratorBridge {
         daoConfig.setConfigurationType("XMLMAPPER");
         daoConfig.setTargetPackage(generatorConfig.getDaoPackage());
         daoConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getDaoTargetFolder());
-
+        
         context.setId("myid");
         context.addTableConfiguration(tableConfig);
         context.setJdbcConnectionConfiguration(jdbcConfig);
@@ -117,6 +116,7 @@ public class MybatisGeneratorBridge {
         context.setJavaModelGeneratorConfiguration(modelConfig);
         context.setSqlMapGeneratorConfiguration(mapperConfig);
         context.setJavaClientGeneratorConfiguration(daoConfig);
+        
         // Comment
         CommentGeneratorConfiguration commentConfig = new CommentGeneratorConfiguration();
         commentConfig.setConfigurationType(DbRemarksCommentGenerator.class.getName());
@@ -154,6 +154,10 @@ public class MybatisGeneratorBridge {
                 context.addPluginConfiguration(pluginConfiguration);
             }
         }
+        PluginConfiguration batchPluginConfiguration = new PluginConfiguration();
+        batchPluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.BatchInsertPlugin");
+        batchPluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.BatchInsertPlugin");
+        context.addPluginConfiguration(batchPluginConfiguration);
         context.setTargetRuntime("MyBatis3");
 
         List<String> warnings = new ArrayList<>();
@@ -161,6 +165,7 @@ public class MybatisGeneratorBridge {
         Set<String> contexts = new HashSet<>();
         ShellCallback shellCallback = new DefaultShellCallback(true); // override=true
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration, shellCallback, warnings);
+        
         myBatisGenerator.generate(progressCallback, contexts, fullyqualifiedTables);
     }
 
