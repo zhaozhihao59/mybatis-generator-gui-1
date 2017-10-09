@@ -1,8 +1,5 @@
 package com.zzg.mybatis.generator.controller;
 
-import com.zzg.mybatis.generator.model.GeneratorConfig;
-import com.zzg.mybatis.generator.util.ConfigHelper;
-import com.zzg.mybatis.generator.view.AlertUtil;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +10,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.zzg.mybatis.generator.model.GeneratorConfig;
+import com.zzg.mybatis.generator.util.ConfigHelper;
+import com.zzg.mybatis.generator.view.AlertUtil;
 
 import java.net.URL;
 import java.util.List;

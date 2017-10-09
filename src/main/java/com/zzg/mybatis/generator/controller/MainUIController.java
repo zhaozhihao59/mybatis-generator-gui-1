@@ -1,14 +1,5 @@
 package com.zzg.mybatis.generator.controller;
 
-import com.zzg.mybatis.generator.bridge.MybatisGeneratorBridge;
-import com.zzg.mybatis.generator.model.DatabaseConfig;
-import com.zzg.mybatis.generator.model.GeneratorConfig;
-import com.zzg.mybatis.generator.model.UITableColumnVO;
-import com.zzg.mybatis.generator.util.ConfigHelper;
-import com.zzg.mybatis.generator.util.DbUtil;
-import com.zzg.mybatis.generator.util.MyStringUtils;
-import com.zzg.mybatis.generator.view.AlertUtil;
-import com.zzg.mybatis.generator.view.UIProgressCallback;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +17,16 @@ import org.mybatis.generator.config.ColumnOverride;
 import org.mybatis.generator.config.IgnoredColumn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.zzg.mybatis.generator.bridge.MybatisGeneratorBridge;
+import com.zzg.mybatis.generator.model.DatabaseConfig;
+import com.zzg.mybatis.generator.model.GeneratorConfig;
+import com.zzg.mybatis.generator.model.UITableColumnVO;
+import com.zzg.mybatis.generator.util.ConfigHelper;
+import com.zzg.mybatis.generator.util.DbUtil;
+import com.zzg.mybatis.generator.util.MyStringUtils;
+import com.zzg.mybatis.generator.view.AlertUtil;
+import com.zzg.mybatis.generator.view.UIProgressCallback;
 
 import java.io.File;
 import java.net.URL;

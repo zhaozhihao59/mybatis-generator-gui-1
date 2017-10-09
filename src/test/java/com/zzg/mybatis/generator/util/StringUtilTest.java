@@ -3,6 +3,8 @@ package com.zzg.mybatis.generator.util;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.zzg.mybatis.generator.util.MyStringUtils;
+
 /**
  * Created by Owen on 6/18/16.
  */

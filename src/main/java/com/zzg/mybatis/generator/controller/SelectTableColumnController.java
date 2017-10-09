@@ -1,6 +1,5 @@
 package com.zzg.mybatis.generator.controller;
 
-import com.zzg.mybatis.generator.model.UITableColumnVO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -10,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import org.mybatis.generator.config.ColumnOverride;
 import org.mybatis.generator.config.IgnoredColumn;
+
+import com.zzg.mybatis.generator.model.UITableColumnVO;
 
 import java.net.URL;
 import java.util.ArrayList;

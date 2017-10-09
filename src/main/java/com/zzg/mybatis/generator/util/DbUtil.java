@@ -1,11 +1,12 @@
 package com.zzg.mybatis.generator.util;
 
-import com.zzg.mybatis.generator.model.DatabaseConfig;
-import com.zzg.mybatis.generator.model.DbType;
-import com.zzg.mybatis.generator.model.UITableColumnVO;
 import org.mybatis.generator.internal.util.ClassloaderUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.zzg.mybatis.generator.model.DatabaseConfig;
+import com.zzg.mybatis.generator.model.DbType;
+import com.zzg.mybatis.generator.model.UITableColumnVO;
 
 import java.sql.*;
 import java.util.*;

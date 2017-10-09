@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.zzg.mybatis.generator.model.DatabaseConfig;
 import com.zzg.mybatis.generator.model.DbType;
 import com.zzg.mybatis.generator.model.GeneratorConfig;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

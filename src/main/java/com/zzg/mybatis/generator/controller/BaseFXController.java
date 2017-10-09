@@ -1,6 +1,5 @@
 package com.zzg.mybatis.generator.controller;
 
-import com.zzg.mybatis.generator.view.AlertUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -9,6 +8,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.zzg.mybatis.generator.view.AlertUtil;
 
 import java.io.IOException;
 import java.lang.ref.SoftReference;

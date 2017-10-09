@@ -1,6 +1,5 @@
 package com.zzg.mybatis.generator.view;
 
-import com.zzg.mybatis.generator.model.DatabaseConfig;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.WeakInvalidationListener;
@@ -9,6 +8,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 
 import java.lang.ref.WeakReference;
+
+import com.zzg.mybatis.generator.model.DatabaseConfig;
 
 /**
  * Created by Owen on 6/14/16.

@@ -1,11 +1,5 @@
 package com.zzg.mybatis.generator.bridge;
 
-import com.zzg.mybatis.generator.model.DatabaseConfig;
-import com.zzg.mybatis.generator.model.DbType;
-import com.zzg.mybatis.generator.model.GeneratorConfig;
-import com.zzg.mybatis.generator.plugins.DbRemarksCommentGenerator;
-import com.zzg.mybatis.generator.util.ConfigHelper;
-import com.zzg.mybatis.generator.util.DbUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.api.ProgressCallback;
@@ -14,6 +8,13 @@ import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.zzg.mybatis.generator.model.DatabaseConfig;
+import com.zzg.mybatis.generator.model.DbType;
+import com.zzg.mybatis.generator.model.GeneratorConfig;
+import com.zzg.mybatis.generator.plugins.DbRemarksCommentGenerator;
+import com.zzg.mybatis.generator.util.ConfigHelper;
+import com.zzg.mybatis.generator.util.DbUtil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -63,6 +64,7 @@ public class MybatisGeneratorBridge {
         TableConfiguration tableConfig = new TableConfiguration(context);
         tableConfig.setTableName(generatorConfig.getTableName());
         tableConfig.setDomainObjectName(generatorConfig.getDomainObjectName());
+        
         // 针对 postgresql 单独配置
         if (DbType.valueOf(selectedDatabaseConfig.getDbType()).getDriverClass() == "org.postgresql.Driver") {
             tableConfig.setDelimitIdentifiers(true);

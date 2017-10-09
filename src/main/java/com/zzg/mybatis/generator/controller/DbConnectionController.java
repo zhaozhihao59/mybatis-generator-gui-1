@@ -1,15 +1,16 @@
 package com.zzg.mybatis.generator.controller;
 
-import com.zzg.mybatis.generator.model.DatabaseConfig;
-import com.zzg.mybatis.generator.util.ConfigHelper;
-import com.zzg.mybatis.generator.util.DbUtil;
-import com.zzg.mybatis.generator.view.AlertUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.zzg.mybatis.generator.model.DatabaseConfig;
+import com.zzg.mybatis.generator.util.ConfigHelper;
+import com.zzg.mybatis.generator.util.DbUtil;
+import com.zzg.mybatis.generator.view.AlertUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
