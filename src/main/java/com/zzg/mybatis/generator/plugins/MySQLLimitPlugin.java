@@ -77,6 +77,8 @@ public class MySQLLimitPlugin extends PluginAdapter {
         setPagination.addBodyLine("this.offset = (page - 1) * (size < 0 ? 0 : size);");
         setPagination.addBodyLine("this.limit = size;");
         topLevelClass.addMethod(setPagination);
+        
+        
         return true;
     }
 

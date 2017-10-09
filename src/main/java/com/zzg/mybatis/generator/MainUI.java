@@ -47,7 +47,7 @@ public class MainUI extends Application {
 			jPanel.add(jLabel);
 			jFrame.add(jPanel);
 			jFrame.setLocationRelativeTo(null);
-			jFrame.setVisible(true);
+			jFrame.setVisible(true) ;
 
 		}
 	}
