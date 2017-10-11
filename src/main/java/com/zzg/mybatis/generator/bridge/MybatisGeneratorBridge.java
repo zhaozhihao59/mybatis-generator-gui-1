@@ -55,6 +55,7 @@ public class MybatisGeneratorBridge {
     public void generate() throws Exception {
         Configuration configuration = new Configuration();
         Context context = new Context(ModelType.CONDITIONAL);
+        context.setDbType(selectedDatabaseConfig.getDbType());
         configuration.addContext(context);
         context.addProperty("javaFileEncoding", "UTF-8");
 	    String connectorLibPath = ConfigHelper.findConnectorLibPath(selectedDatabaseConfig.getDbType());
@@ -64,7 +65,9 @@ public class MybatisGeneratorBridge {
         TableConfiguration tableConfig = new TableConfiguration(context);
         tableConfig.setTableName(generatorConfig.getTableName());
         tableConfig.setDomainObjectName(generatorConfig.getDomainObjectName());
-        
+        tableConfig.setInsertStatementEnabled(false);
+        tableConfig.setUpdateByExampleStatementEnabled(false);
+        tableConfig.setUpdateByPrimaryKeyStatementEnabled(false);
         // 针对 postgresql 单独配置
         if (DbType.valueOf(selectedDatabaseConfig.getDbType()).getDriverClass() == "org.postgresql.Driver") {
             tableConfig.setDelimitIdentifiers(true);
@@ -73,6 +76,7 @@ public class MybatisGeneratorBridge {
         //添加GeneratedKey主键生成
 		if (StringUtils.isNoneEmpty(generatorConfig.getGenerateKeys())) {
 			tableConfig.setGeneratedKey(new GeneratedKey(generatorConfig.getGenerateKeys(), selectedDatabaseConfig.getDbType(), true, null));
+			
 		}
 
         if (generatorConfig.getMapperName() != null) {
@@ -113,7 +117,6 @@ public class MybatisGeneratorBridge {
         
         context.setId("myid");
         context.addTableConfiguration(tableConfig);
-        context.setJdbcConnectionConfiguration(jdbcConfig);
         context.setJdbcConnectionConfiguration(jdbcConfig);
         context.setJavaModelGeneratorConfiguration(modelConfig);
         context.setSqlMapGeneratorConfiguration(mapperConfig);

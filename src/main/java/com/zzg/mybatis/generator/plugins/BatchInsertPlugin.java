@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -67,8 +68,13 @@ public class BatchInsertPlugin extends PluginAdapter{
 	@Override
 	public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 		List<IntrospectedColumn> columns = introspectedTable.getAllColumns();
+		
         //获得要自增的列名
-        String incrementField = introspectedTable.getTableConfiguration().getProperties().getProperty("incrementField");
+        String incrementField = null;
+        if(!CollectionUtils.isEmpty(introspectedTable.getPrimaryKeyColumns())){
+        	incrementField = introspectedTable.getPrimaryKeyColumns().get(0).getActualColumnName();
+        }
+        
         if (incrementField != null) {
             incrementField = incrementField.toUpperCase();
         }
@@ -77,7 +83,7 @@ public class BatchInsertPlugin extends PluginAdapter{
         for (IntrospectedColumn introspectedColumn : columns) {
             String columnName = introspectedColumn.getActualColumnName();
             
-            if (!columnName.toUpperCase().equals("ID")) {//不是自增字段的才会出现在批量插入中
+            if (!columnName.toUpperCase().equals(incrementField)) {//不是自增字段的才会出现在批量插入中
                 dbcolumnsName.append(columnName + ",");
                 javaPropertyAndDbType.append("#{item." + introspectedColumn.getJavaProperty() + ",jdbcType=" + introspectedColumn.getJdbcTypeName() + "},");
             }

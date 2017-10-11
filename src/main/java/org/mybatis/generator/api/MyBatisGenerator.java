@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.mybatis.generator.codegen.RootClassInfo;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.Context;
@@ -257,11 +258,14 @@ public class MyBatisGenerator {
             context.introspectTables(callback, warnings,
                     fullyQualifiedTableNames);
         }
-
+        
+        
         // now run the generates
         totalSteps = 0;
         for (Context context : contextsToRun) {
             totalSteps += context.getGenerationSteps();
+            //add primary key generator
+            context.generatePrimaryKey();
         }
         callback.generationStarted(totalSteps);
 

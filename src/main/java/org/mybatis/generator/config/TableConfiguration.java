@@ -39,12 +39,16 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 public class TableConfiguration extends PropertyHolder {
 
     private boolean insertStatementEnabled;
+    
+    private boolean insertSelectiveStatementEnabled;
 
     private boolean selectByPrimaryKeyStatementEnabled;
 
     private boolean selectByExampleStatementEnabled;
 
     private boolean updateByPrimaryKeyStatementEnabled;
+    
+    private boolean updateByPrimaryKeySelectiveStatementEnabled;
 
     private boolean deleteByPrimaryKeyStatementEnabled;
 
@@ -53,6 +57,8 @@ public class TableConfiguration extends PropertyHolder {
     private boolean countByExampleStatementEnabled;
 
     private boolean updateByExampleStatementEnabled;
+    
+    private boolean updateByExampleSelectiveStatementEnabled;
 
     private List<ColumnOverride> columnOverrides;
 
@@ -109,6 +115,9 @@ public class TableConfiguration extends PropertyHolder {
         deleteByExampleStatementEnabled = true;
         countByExampleStatementEnabled = true;
         updateByExampleStatementEnabled = true;
+        insertSelectiveStatementEnabled = true;
+        updateByExampleSelectiveStatementEnabled = true;
+        updateByPrimaryKeySelectiveStatementEnabled = true;
     }
 
     public boolean isDeleteByPrimaryKeyStatementEnabled() {
@@ -266,11 +275,15 @@ public class TableConfiguration extends PropertyHolder {
 
     public boolean areAnyStatementsEnabled() {
         return selectByExampleStatementEnabled
-                || selectByPrimaryKeyStatementEnabled || insertStatementEnabled
+                || selectByPrimaryKeyStatementEnabled 
+                || insertStatementEnabled
                 || updateByPrimaryKeyStatementEnabled
                 || deleteByExampleStatementEnabled
                 || deleteByPrimaryKeyStatementEnabled
                 || countByExampleStatementEnabled
+                || insertSelectiveStatementEnabled
+                || updateByExampleSelectiveStatementEnabled
+                || updateByPrimaryKeySelectiveStatementEnabled
                 || updateByExampleStatementEnabled;
     }
 
@@ -384,7 +397,9 @@ public class TableConfiguration extends PropertyHolder {
         if (!insertStatementEnabled) {
             xmlElement.addAttribute(new Attribute("enableInsert", "false")); //$NON-NLS-1$ //$NON-NLS-2$
         }
-
+        if(!insertSelectiveStatementEnabled){
+        	xmlElement.addAttribute(new Attribute("enableInsertSelective", "false"));
+        }
         if (!selectByPrimaryKeyStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
                     "enableSelectByPrimaryKey", "false")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -398,6 +413,9 @@ public class TableConfiguration extends PropertyHolder {
         if (!updateByPrimaryKeyStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
                     "enableUpdateByPrimaryKey", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        if(!updateByPrimaryKeySelectiveStatementEnabled){
+        	xmlElement.addAttribute(new Attribute("enableUpdateByPrimaryKeySelective", "false"));
         }
 
         if (!deleteByPrimaryKeyStatementEnabled) {
@@ -418,6 +436,9 @@ public class TableConfiguration extends PropertyHolder {
         if (!updateByExampleStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
                     "enableUpdateByExample", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+        if(!updateByExampleSelectiveStatementEnabled){
+        	xmlElement.addAttribute(new Attribute("updateByExampleSelective","false"));
         }
 
         if (stringHasValue(selectByPrimaryKeyQueryId)) {
@@ -611,4 +632,28 @@ public class TableConfiguration extends PropertyHolder {
     public void setSqlProviderName(String sqlProviderName) {
         this.sqlProviderName = sqlProviderName;
     }
+
+	public boolean isInsertSelectiveStatementEnabled() {
+		return insertSelectiveStatementEnabled;
+	}
+
+	public boolean isUpdateByPrimaryKeySelectiveStatementEnabled() {
+		return updateByPrimaryKeySelectiveStatementEnabled;
+	}
+
+	public boolean isUpdateByExampleSelectiveStatementEnabled() {
+		return updateByExampleSelectiveStatementEnabled;
+	}
+
+	public void setInsertSelectiveStatementEnabled(boolean insertSelectiveStatementEnabled) {
+		this.insertSelectiveStatementEnabled = insertSelectiveStatementEnabled;
+	}
+
+	public void setUpdateByPrimaryKeySelectiveStatementEnabled(boolean updateByPrimaryKeySelectiveStatementEnabled) {
+		this.updateByPrimaryKeySelectiveStatementEnabled = updateByPrimaryKeySelectiveStatementEnabled;
+	}
+
+	public void setUpdateByExampleSelectiveStatementEnabled(boolean updateByExampleSelectiveStatementEnabled) {
+		this.updateByExampleSelectiveStatementEnabled = updateByExampleSelectiveStatementEnabled;
+	}
 }

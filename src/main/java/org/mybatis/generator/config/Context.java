@@ -89,6 +89,8 @@ public class Context extends PropertyHolder {
     private JavaFormatter javaFormatter;
 
     private XmlFormatter xmlFormatter;
+    
+    private String dbType;
 
     public Context(ModelType defaultModelType) {
         super();
@@ -564,4 +566,22 @@ public class Context extends PropertyHolder {
     public void setConnectionFactoryConfiguration(ConnectionFactoryConfiguration connectionFactoryConfiguration) {
         this.connectionFactoryConfiguration = connectionFactoryConfiguration;
     }
+
+	public void generatePrimaryKey() {
+		for (int i = 0; i < introspectedTables.size(); i++) {
+			TableConfiguration tableConfiguration = tableConfigurations.get(i);
+			IntrospectedTable introspectedTable = introspectedTables.get(i);
+			if(tableConfiguration.getGeneratedKey() == null && introspectedTable.getPrimaryKeyColumns() != null && introspectedTable.getPrimaryKeyColumns().size() == 1){
+				tableConfiguration.setGeneratedKey(new GeneratedKey(introspectedTable.getPrimaryKeyColumns().get(0).getActualColumnName(), this.dbType, true, null));
+			}
+		}
+	}
+
+	public String getDbType() {
+		return dbType;
+	}
+
+	public void setDbType(String dbType) {
+		this.dbType = dbType;
+	}
 }
