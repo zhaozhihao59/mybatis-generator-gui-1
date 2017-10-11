@@ -304,7 +304,7 @@ public abstract class BaseRules implements Rules {
         }
 
         return introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3
-                && tableConfiguration.isUpdateByExampleStatementEnabled();
+                && (tableConfiguration.isUpdateByExampleSelectiveStatementEnabled() || tableConfiguration.isUpdateByExampleStatementEnabled());
     }
 
     /**
