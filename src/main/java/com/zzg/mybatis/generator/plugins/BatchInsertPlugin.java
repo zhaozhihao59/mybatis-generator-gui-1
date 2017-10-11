@@ -83,7 +83,7 @@ public class BatchInsertPlugin extends PluginAdapter{
         for (IntrospectedColumn introspectedColumn : columns) {
             String columnName = introspectedColumn.getActualColumnName();
             
-            if (!columnName.toUpperCase().equals(incrementField)) {//不是自增字段的才会出现在批量插入中
+            if (!columnName.toUpperCase().equals(incrementField) && !columnName.toLowerCase().equals("is_deleted") && !columnName.toLowerCase().equals("ctime") && !columnName.toLowerCase().equals("mtime")) {//不是自增字段的才会出现在批量插入中
                 dbcolumnsName.append(columnName + ",");
                 javaPropertyAndDbType.append("#{item." + introspectedColumn.getJavaProperty() + ",jdbcType=" + introspectedColumn.getJdbcTypeName() + "},");
             }
