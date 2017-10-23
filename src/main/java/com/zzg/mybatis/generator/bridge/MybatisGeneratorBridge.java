@@ -62,6 +62,7 @@ public class MybatisGeneratorBridge {
 	    _LOG.info("connectorLibPath: {}", connectorLibPath);
 	    configuration.addClasspathEntry(connectorLibPath);
         // Table configuration
+	    context.setMergeable(false);
         TableConfiguration tableConfig = new TableConfiguration(context);
         tableConfig.setTableName(generatorConfig.getTableName());
         tableConfig.setDomainObjectName(generatorConfig.getDomainObjectName());
@@ -101,6 +102,7 @@ public class MybatisGeneratorBridge {
         jdbcConfig.setConnectionURL(DbUtil.getConnectionUrlWithSchema(selectedDatabaseConfig));
         jdbcConfig.setUserId(selectedDatabaseConfig.getUsername());
         jdbcConfig.setPassword(selectedDatabaseConfig.getPassword());
+        
         // java model
         JavaModelGeneratorConfiguration modelConfig = new JavaModelGeneratorConfiguration();
         modelConfig.setTargetPackage(generatorConfig.getModelPackage());
@@ -114,7 +116,7 @@ public class MybatisGeneratorBridge {
         daoConfig.setConfigurationType("XMLMAPPER");
         daoConfig.setTargetPackage(generatorConfig.getDaoPackage());
         daoConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getDaoTargetFolder());
-        
+        // dto
         context.setId("myid");
         context.addTableConfiguration(tableConfig);
         context.setJdbcConnectionConfiguration(jdbcConfig);
@@ -144,6 +146,7 @@ public class MybatisGeneratorBridge {
             pluginConfiguration1.addProperty("type", "org.mybatis.generator.plugins.EqualsHashCodePlugin");
             pluginConfiguration1.setConfigurationType("org.mybatis.generator.plugins.EqualsHashCodePlugin");
             context.addPluginConfiguration(pluginConfiguration1);
+            
             PluginConfiguration pluginConfiguration2 = new PluginConfiguration();
             pluginConfiguration2.addProperty("type", "org.mybatis.generator.plugins.ToStringPlugin");
             pluginConfiguration2.setConfigurationType("org.mybatis.generator.plugins.ToStringPlugin");
@@ -158,6 +161,15 @@ public class MybatisGeneratorBridge {
                 pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.MySQLLimitPlugin");
                 context.addPluginConfiguration(pluginConfiguration);
             }
+        }
+        
+        if(StringUtils.isNotBlank(generatorConfig.getDtoPackage()) && StringUtils.isNotBlank(generatorConfig.getDtoPackageTargetFolder())){
+        	PluginConfiguration dtoPluginConfiguration = new PluginConfiguration();
+        	dtoPluginConfiguration.addProperty("dtoType", generatorConfig.getDtoPackage()+ "." + generatorConfig.getDomainObjectName() + "Dto");
+        	dtoPluginConfiguration.addProperty("dtoTargePackage",generatorConfig.getProjectFolder() + "/" + generatorConfig.getDtoPackageTargetFolder());
+        	dtoPluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.GenerationDtoPlugin");
+        	dtoPluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.GenerationDtoPlugin");
+        	context.addPluginConfiguration(dtoPluginConfiguration);
         }
         PluginConfiguration batchPluginConfiguration = new PluginConfiguration();
         batchPluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.BatchInsertPlugin");

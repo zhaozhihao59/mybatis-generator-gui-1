@@ -50,6 +50,12 @@ public class MainUIController extends BaseFXController {
     @FXML
     private TextField mapperTargetPackage;
     @FXML
+    private TextField dtoTargetPackage;
+    @FXML
+    private TextField dtoName;
+    @FXML
+    private TextField dtoTargetProject;
+    @FXML
     private TextField daoTargetPackage;
     @FXML
     private TextField tableNameField;
@@ -178,6 +184,7 @@ public class MainUIController extends BaseFXController {
                         this.tableName = tableName;
                         tableNameField.setText(tableName);
                         domainObjectNameField.setText(MyStringUtils.dbStringToCamelStyle(tableName));
+                        mapperName.setText(domainObjectNameField.getText() + "Dao");
                     }
                 }
             });
@@ -304,6 +311,8 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setNeedToStringHashcodeEquals(needToStringHashcodeEquals.isSelected());
         generatorConfig.setAnnotation(annotationCheckBox.isSelected());
         generatorConfig.setUseActualColumnNames(useActualColumnNamesCheckbox.isSelected());
+        generatorConfig.setDtoPackage(dtoTargetPackage.getText());
+        generatorConfig.setDtoPackageTargetFolder(dtoTargetProject.getText());
         return generatorConfig;
     }
 

@@ -99,12 +99,11 @@ public class DbRemarksCommentGenerator implements CommentGenerator {
             IntrospectedTable introspectedTable,
             IntrospectedColumn introspectedColumn) {
         if (StringUtility.stringHasValue(introspectedColumn.getRemarks())) {
-            field.addJavaDocLine("/**");
             StringBuilder sb = new StringBuilder();
-            sb.append(" * ");
+            sb.append("/** ");
             sb.append(introspectedColumn.getRemarks());
+            sb.append(" **/");
             field.addJavaDocLine(sb.toString());
-            field.addJavaDocLine(" */");
         }
 
         if (isAnnotations) {
@@ -142,11 +141,26 @@ public class DbRemarksCommentGenerator implements CommentGenerator {
     public void addGetterComment(Method method,
             IntrospectedTable introspectedTable,
             IntrospectedColumn introspectedColumn) {
+    	if (StringUtility.stringHasValue(introspectedColumn.getRemarks())) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("/** ");
+            sb.append(introspectedColumn.getRemarks());
+            sb.append(" **/");
+            method.addJavaDocLine(sb.toString());
+        }
+    	
     }
 
     public void addSetterComment(Method method,
             IntrospectedTable introspectedTable,
             IntrospectedColumn introspectedColumn) {
+    	if (StringUtility.stringHasValue(introspectedColumn.getRemarks())) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("/** ");
+            sb.append(introspectedColumn.getRemarks());
+            sb.append(" **/");
+            method.addJavaDocLine(sb.toString());
+        }
     }
 
     public void addClassComment(InnerClass innerClass,

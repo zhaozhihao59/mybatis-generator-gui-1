@@ -51,6 +51,8 @@ import org.mybatis.generator.internal.db.DatabaseIntrospector;
 public class Context extends PropertyHolder {
 
     private String id;
+    
+    private boolean isMergeable;
 
     private JDBCConnectionConfiguration jdbcConnectionConfiguration;
 
@@ -583,5 +585,13 @@ public class Context extends PropertyHolder {
 
 	public void setDbType(String dbType) {
 		this.dbType = dbType;
+	}
+
+	public boolean isMergeable() {
+		return isMergeable;
+	}
+
+	public void setMergeable(boolean isMergeable) {
+		this.isMergeable = isMergeable;
 	}
 }

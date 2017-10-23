@@ -124,7 +124,7 @@ public class MapperConfigPlugin extends PluginAdapter {
                 .getProperty("fileName", "MapperConfig.xml"), //$NON-NLS-1$ //$NON-NLS-2$
                 properties.getProperty("targetPackage"), //$NON-NLS-1$
                 properties.getProperty("targetProject"), //$NON-NLS-1$
-                false, context.getXmlFormatter());
+                context.isMergeable(), context.getXmlFormatter());
 
         List<GeneratedXmlFile> answer = new ArrayList<GeneratedXmlFile>(1);
         answer.add(gxf);

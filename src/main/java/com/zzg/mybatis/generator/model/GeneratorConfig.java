@@ -21,7 +21,19 @@ public class GeneratorConfig {
 	private String modelPackage;
 
 	private String modelPackageTargetFolder;
+	
+	private String dtoPackage;
 
+	private String dtoPackageTargetFolder;
+	
+	private String servicePackage;
+
+	private String servicePackageTargetFolder;
+	
+	private String implPackage;
+
+	private String implPackageTargetFolder;
+	
 	private String daoPackage;
 
 	private String daoTargetFolder;
@@ -190,5 +202,53 @@ public class GeneratorConfig {
 
 	public void setGenerateKeys(String generateKeys) {
 		this.generateKeys = generateKeys;
+	}
+
+	public String getDtoPackage() {
+		return dtoPackage;
+	}
+
+	public String getDtoPackageTargetFolder() {
+		return dtoPackageTargetFolder;
+	}
+
+	public void setDtoPackage(String dtoPackage) {
+		this.dtoPackage = dtoPackage;
+	}
+
+	public void setDtoPackageTargetFolder(String dtoPackageTargetFolder) {
+		this.dtoPackageTargetFolder = dtoPackageTargetFolder;
+	}
+
+	public String getServicePackage() {
+		return servicePackage;
+	}
+
+	public String getServicePackageTargetFolder() {
+		return servicePackageTargetFolder;
+	}
+
+	public String getImplPackage() {
+		return implPackage;
+	}
+
+	public String getImplPackageTargetFolder() {
+		return implPackageTargetFolder;
+	}
+
+	public void setServicePackage(String servicePackage) {
+		this.servicePackage = servicePackage;
+	}
+
+	public void setServicePackageTargetFolder(String servicePackageTargetFolder) {
+		this.servicePackageTargetFolder = servicePackageTargetFolder;
+	}
+
+	public void setImplPackage(String implPackage) {
+		this.implPackage = implPackage;
+	}
+
+	public void setImplPackageTargetFolder(String implPackageTargetFolder) {
+		this.implPackageTargetFolder = implPackageTargetFolder;
 	}
 }
