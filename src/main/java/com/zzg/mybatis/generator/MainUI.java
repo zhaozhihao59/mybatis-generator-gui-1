@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import com.zzg.mybatis.generator.controller.MainUIController;
 import com.zzg.mybatis.generator.util.ConfigHelper;
 
+import javax.sound.midi.Soundbank;
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 
 /**

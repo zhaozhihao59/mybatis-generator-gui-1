@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -232,9 +233,13 @@ public class ConfigHelper {
 			if (url.getPath().contains(".jar")) {
 				file = new File("lib/");
 			} else {
-				file = new File("src/main/resources/lib");
+				URL resource = Thread.currentThread().getContextClassLoader().getResource("lib");
+				String decode = URLDecoder.decode(resource.getPath(), "utf-8");
+				file =  new File(decode);
 			}
 			System.out.println(file.getCanonicalPath());
+			System.out.println(file.isDirectory());
+			System.out.println(file.list());
 			File[] jarFiles = file.listFiles();
 			System.out.println("jarFiles:" + jarFiles);
 			if (jarFiles != null && jarFiles.length > 0) {

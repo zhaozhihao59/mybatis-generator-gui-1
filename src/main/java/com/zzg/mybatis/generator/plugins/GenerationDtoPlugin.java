@@ -39,15 +39,17 @@ public class GenerationDtoPlugin extends PluginAdapter {
 		topLevelClass.addImportedType("lombok.Builder");
 		topLevelClass.addImportedType("lombok.Data");
 		topLevelClass.addImportedType("lombok.NoArgsConstructor");
-
-		List<IntrospectedColumn> introspectedColumns = getColumnsInThisClass(introspectedTable);
-		
-		for (IntrospectedColumn introspectedColumn : introspectedColumns) {
-			
-			Field field = getJavaBeansField(introspectedColumn, context, introspectedTable);
-            topLevelClass.addField(field);
-            topLevelClass.addImportedType(field.getType());
-		}
+		FullyQualifiedJavaType basicType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
+		topLevelClass.setSuperClass(basicType.getShortName());
+		topLevelClass.addImportedType(basicType.getFullyQualifiedName());
+//		List<IntrospectedColumn> introspectedColumns = getColumnsInThisClass(introspectedTable);
+//
+//		for (IntrospectedColumn introspectedColumn : introspectedColumns) {
+//
+//			Field field = getJavaBeansField(introspectedColumn, context, introspectedTable);
+//            topLevelClass.addField(field);
+//            topLevelClass.addImportedType(field.getType());
+//		}
 		
 		GeneratedJavaFile dtoFile = new GeneratedJavaFile(topLevelClass, properties.getProperty("dtoTargePackage"),
 				introspectedTable.getContext().getJavaFormatter());;

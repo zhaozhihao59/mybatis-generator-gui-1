@@ -8,6 +8,7 @@ import com.zzg.mybatis.generator.model.DatabaseConfig;
 import com.zzg.mybatis.generator.model.DbType;
 import com.zzg.mybatis.generator.model.UITableColumnVO;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.*;
 import java.util.*;
 
@@ -24,7 +25,12 @@ public class DbUtil {
 	static {
 		drivers = new HashMap<>();
 		List<String> driverJars = ConfigHelper.getAllJDBCDriverJarPaths();
-		ClassLoader classloader = ClassloaderUtility.getCustomClassloader(driverJars);
+		ClassLoader classloader = null;
+		try {
+			classloader = ClassloaderUtility.getCustomClassloader(driverJars);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		DbType[] dbTypes = DbType.values();
 		for (DbType dbType : dbTypes) {
 			try {

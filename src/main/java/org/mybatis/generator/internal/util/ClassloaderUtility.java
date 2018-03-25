@@ -18,9 +18,11 @@ package org.mybatis.generator.internal.util;
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,13 +41,13 @@ public class ClassloaderUtility {
     private ClassloaderUtility() {
     }
 
-    public static ClassLoader getCustomClassloader(Collection<String> entries) {
+    public static ClassLoader getCustomClassloader(Collection<String> entries) throws UnsupportedEncodingException {
         List<URL> urls = new ArrayList<URL>();
         File file;
 
         if (entries != null) {
             for (String classPathEntry : entries) {
-                file = new File(classPathEntry);
+                file = new File(URLDecoder.decode(classPathEntry,"utf-8"));
                 if (!file.exists()) {
                     throw new RuntimeException(getString(
                             "RuntimeError.9", classPathEntry)); //$NON-NLS-1$
