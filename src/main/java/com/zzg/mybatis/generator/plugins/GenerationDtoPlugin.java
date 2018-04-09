@@ -30,15 +30,9 @@ public class GenerationDtoPlugin extends PluginAdapter {
 		FullyQualifiedJavaType type = new FullyQualifiedJavaType(properties.getProperty("dtoType"));
 		TopLevelClass topLevelClass = new TopLevelClass(type);
 		topLevelClass.setVisibility(JavaVisibility.PUBLIC);
-		topLevelClass.addAnnotation("@Builder");
 		topLevelClass.addAnnotation("@Data");
-		topLevelClass.addAnnotation("@NoArgsConstructor");
-		topLevelClass.addAnnotation("@AllArgsConstructor");
 		// add importedType
-		topLevelClass.addImportedType("lombok.AllArgsConstructor");
-		topLevelClass.addImportedType("lombok.Builder");
 		topLevelClass.addImportedType("lombok.Data");
-		topLevelClass.addImportedType("lombok.NoArgsConstructor");
 		FullyQualifiedJavaType basicType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
 		topLevelClass.setSuperClass(basicType.getShortName());
 		topLevelClass.addImportedType(basicType.getFullyQualifiedName());
