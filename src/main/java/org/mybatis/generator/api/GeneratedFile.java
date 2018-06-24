@@ -25,6 +25,20 @@ public abstract class GeneratedFile {
     /** The target project. */
     protected String targetProject;
 
+    public Boolean getRewrited() {
+        return rewrited;
+    }
+
+    public void setRewrited(Boolean rewrited) {
+        this.rewrited = rewrited;
+    }
+
+    private Boolean rewrited = true;
+
+    public void setTargetProject(String targetProject) {
+        this.targetProject = targetProject;
+    }
+
     /**
      * Instantiates a new generated file.
      *

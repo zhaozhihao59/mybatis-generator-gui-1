@@ -16,6 +16,7 @@ import com.zzg.mybatis.generator.plugins.DbRemarksCommentGenerator;
 import com.zzg.mybatis.generator.util.ConfigHelper;
 import com.zzg.mybatis.generator.util.DbUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -81,7 +82,8 @@ public class MybatisGeneratorBridge {
 		}
 
         if (generatorConfig.getMapperName() != null) {
-            tableConfig.setMapperName(generatorConfig.getMapperName());
+            String mgbString = "MGR" + generatorConfig.getMapperName();
+            tableConfig.setMapperName(mgbString);
         }
         // add ignore columns
         if (ignoredColumns != null) {
@@ -106,16 +108,18 @@ public class MybatisGeneratorBridge {
         // java model
         JavaModelGeneratorConfiguration modelConfig = new JavaModelGeneratorConfiguration();
         modelConfig.setTargetPackage(generatorConfig.getModelPackage());
-        modelConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getModelPackageTargetFolder());
+        modelConfig.setTargetProject(generatorConfig.getProjectFolder() + File.separator + generatorConfig.getModelPackageTargetFolder());
         // Mapper configuration
         SqlMapGeneratorConfiguration mapperConfig = new SqlMapGeneratorConfiguration();
-        mapperConfig.setTargetPackage(generatorConfig.getMappingXMLPackage());
-        mapperConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
+        mapperConfig.setTargetPackage(generatorConfig.getMappingXMLPackage() + ".mgr");
+//        mapperConfig.setTargetPackage(generatorConfig.getMappingXMLPackage());
+        mapperConfig.setTargetProject(generatorConfig.getProjectFolder() + File.separator +  generatorConfig.getMappingXMLTargetFolder());
         // DAO
         JavaClientGeneratorConfiguration daoConfig = new JavaClientGeneratorConfiguration();
         daoConfig.setConfigurationType("XMLMAPPER");
-        daoConfig.setTargetPackage(generatorConfig.getDaoPackage());
-        daoConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getDaoTargetFolder());
+        daoConfig.setTargetPackage(generatorConfig.getDaoPackage() + ".mgr");
+//        daoConfig.setTargetPackage(generatorConfig.getDaoPackage());
+        daoConfig.setTargetProject(generatorConfig.getProjectFolder() + File.separator+generatorConfig.getDaoTargetFolder());
         // dto
         context.setId("myid");
         context.addTableConfiguration(tableConfig);
@@ -134,7 +138,17 @@ public class MybatisGeneratorBridge {
             commentConfig.addProperty("annotations", "true");
         }
         context.setCommentGeneratorConfiguration(commentConfig);
-        
+        //自动生成子类dao
+        PluginConfiguration generationMapperConfiguration = new PluginConfiguration();
+        generationMapperConfiguration.addProperty("type","com.zzg.mybatis.generator.plugins.GenerationMapperPlugin");
+        generationMapperConfiguration.addProperty("daoType",generatorConfig.getDaoPackage() +"."+ generatorConfig.getMapperName());
+        generationMapperConfiguration.addProperty("superType",generatorConfig.getDaoPackage() + ".mgr." + tableConfig.getMapperName());
+        generationMapperConfiguration.addProperty("daoTargePackage",generatorConfig.getProjectFolder() + File.separator+ generatorConfig.getDaoTargetFolder());
+        generationMapperConfiguration.addProperty("mapperTargetPackage",generatorConfig.getMappingXMLPackage());
+        generationMapperConfiguration.addProperty("targetProject",generatorConfig.getProjectFolder() + File.separator + generatorConfig.getMappingXMLTargetFolder());
+        generationMapperConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.GenerationMapperPlugin");
+        context.addPluginConfiguration(generationMapperConfiguration);
+
         //实体添加序列化
         PluginConfiguration serializablePluginConfiguration = new PluginConfiguration();
         serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
@@ -166,7 +180,7 @@ public class MybatisGeneratorBridge {
         if(StringUtils.isNotBlank(generatorConfig.getDtoPackage()) && StringUtils.isNotBlank(generatorConfig.getDtoPackageTargetFolder())){
         	PluginConfiguration dtoPluginConfiguration = new PluginConfiguration();
         	dtoPluginConfiguration.addProperty("dtoType", generatorConfig.getDtoPackage()+ "." + generatorConfig.getDomainObjectName() + "Dto");
-        	dtoPluginConfiguration.addProperty("dtoTargePackage",generatorConfig.getProjectFolder() + "/" + generatorConfig.getDtoPackageTargetFolder());
+        	dtoPluginConfiguration.addProperty("dtoTargePackage",generatorConfig.getProjectFolder() + File.separator + generatorConfig.getDtoPackageTargetFolder());
         	dtoPluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.GenerationDtoPlugin");
         	dtoPluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.GenerationDtoPlugin");
         	context.addPluginConfiguration(dtoPluginConfiguration);

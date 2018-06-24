@@ -25,7 +25,7 @@ public class GenerationDtoPlugin extends PluginAdapter {
 
 	@Override
 	public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
-		List<GeneratedJavaFile> ans = new ArrayList<GeneratedJavaFile>();
+		List<GeneratedJavaFile> ans = new ArrayList<>();
 
 		FullyQualifiedJavaType type = new FullyQualifiedJavaType(properties.getProperty("dtoType"));
 		TopLevelClass topLevelClass = new TopLevelClass(type);
@@ -46,12 +46,7 @@ public class GenerationDtoPlugin extends PluginAdapter {
 //		}
 		
 		GeneratedJavaFile dtoFile = new GeneratedJavaFile(topLevelClass, properties.getProperty("dtoTargePackage"),
-				introspectedTable.getContext().getJavaFormatter());;
-		if (context.getPlugins().modelBaseRecordClassGenerated(
-                topLevelClass, introspectedTable)) {
-			dtoFile = new GeneratedJavaFile(topLevelClass, properties.getProperty("dtoTargePackage"),
-					introspectedTable.getContext().getJavaFormatter());
-        }
+				introspectedTable.getContext().getJavaFormatter());
 		ans.add(dtoFile);
 		return ans;
 	}

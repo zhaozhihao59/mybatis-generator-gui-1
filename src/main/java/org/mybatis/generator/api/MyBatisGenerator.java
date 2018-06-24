@@ -306,7 +306,9 @@ public class MyBatisGenerator {
                     .getTargetProject(), gjf.getTargetPackage());
             targetFile = new File(directory, gjf.getFileName());
             if (targetFile.exists()) {
-                if (shellCallback.isMergeSupported()) {
+                if (!gjf.getRewrited()) {
+                    return;
+                }else if (shellCallback.isMergeSupported()) {
                     source = shellCallback.mergeJavaFile(gjf
                             .getFormattedContent(), targetFile,
                             MergeConstants.OLD_ELEMENT_TAGS,
@@ -344,7 +346,9 @@ public class MyBatisGenerator {
                     .getTargetProject(), gxf.getTargetPackage());
             targetFile = new File(directory, gxf.getFileName());
             if (targetFile.exists()) {
-                if (gxf.isMergeable()) {
+                if (!gxf.getRewrited()) {
+                    return;
+                }else if (gxf.isMergeable()) {
                     source = XmlFileMergerJaxp.getMergedSource(gxf,
                             targetFile);
                 } else if (shellCallback.isOverwriteEnabled()) {
