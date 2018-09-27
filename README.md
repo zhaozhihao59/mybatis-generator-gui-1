@@ -57,5 +57,3 @@ Eclipse or IntelliJ IDEA中启动, 找到```com.zzg.mybatis.generator.MainUI```�
 Licensed under the Apache 2.0 License
 
 Copyright 2017 by Owen Zou
-
-add test
